@@ -7,6 +7,7 @@
 @History:
 	V1.0:加密一段字符串（原字符加1）
 	V1.1:加上解密功能
+	V1.2:另外，使用continue并不安全，所以改成了if-else判断
 *****************************************************************************/
 
 #include <stdio.h>
@@ -45,15 +46,18 @@ void forbreak()
 		c = chararray[i];
 		if (c == ' ')
 		{
-			str[i] = c;
-			continue;  //遇到空格跳过后面的str[i] = c + 1;加密处理
+			str[i] = c;  //遇到空格不做加密处理
+			//continue;  
 		}
-		if (c == '!' || (c == '\0'))  //遇到！或结束符，不再加密
+		else if (c == '!' || (c == '\0'))  //遇到！或结束符，不再加密
 		{
 			str[i] = '\0';
 			break;
 		}
-		str[i] = c + 1;
+		else  //除了以上两种情况，均加密
+		{
+			str[i] = c + 1;
+		}
 	}
 	printf("\nThe encrypted str='%s'", str);
 	//decrypt string
@@ -62,15 +66,18 @@ void forbreak()
 		c = str[i];
 		if (c == ' ')
 		{
-			str[i] = c;
-			continue;  //遇到空格跳过后面的str[i] = c + 1;加密处理
+			str[i] = c;  //遇到空格跳过后面的str[i] = c + 1;加密处理
+			//continue;  
 		}
-		if (c == '!' || (c == '\0'))  //遇到！或结束符，不再加密
+		else if (c == '!' || (c == '\0'))  //遇到！或结束符，不再加密
 		{
 			str[i] = '\0';
 			break;
 		}
-		str[i] = c - 1;
+		else  //除了以上两种情况，均解密
+		{
+			str[i] = c - 1;
+		}
 	}
 	printf("\nThe decrypted str='%s'", str);
 }
