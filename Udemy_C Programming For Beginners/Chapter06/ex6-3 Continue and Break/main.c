@@ -2,10 +2,11 @@
 @File name:
 @Description: 测试循环体中continue和break的用法，此例子用了一个加密字符串的算法
 @Author: Harry Wu
-@Version: V1.0
-@Date: 2017-xx-xx
+@Version: V1.1
+@Date: 2017-03-31
 @History:
-V1.0:
+	V1.0:加密一段字符串（原字符加1）
+	V1.1:加上解密功能
 *****************************************************************************/
 
 #include <stdio.h>
@@ -55,6 +56,23 @@ void forbreak()
 		str[i] = c + 1;
 	}
 	printf("\nThe encrypted str='%s'", str);
+	//decrypt string
+	for (i = 0; i < 50; i++)
+	{
+		c = str[i];
+		if (c == ' ')
+		{
+			str[i] = c;
+			continue;  //遇到空格跳过后面的str[i] = c + 1;加密处理
+		}
+		if (c == '!' || (c == '\0'))  //遇到！或结束符，不再加密
+		{
+			str[i] = '\0';
+			break;
+		}
+		str[i] = c - 1;
+	}
+	printf("\nThe decrypted str='%s'", str);
 }
 
 int main(int argc, char** argv)
