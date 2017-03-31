@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="Chapter2" Database="" Version="10.0.0">
+  <Project Name="ex2-1 Helloworld" Path="ex2-1 Helloworld/ex2-1 Helloworld.project" Active="Yes"/>
+  <Project Name="ex2-2 HelloWorldAgain" Path="ex2-2 HelloWorldAgain/ex2-2 HelloWorldAgain.project"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="ex2-1 Helloworld" ConfigName="Debug_Win32"/>
+      <Project Name="ex2-1 Helloworld" ConfigName="Debug_x64"/>
+      <Project Name="ex2-2 HelloWorldAgain" ConfigName="Debug_Win32"/>
+      <Project Name="ex2-2 HelloWorldAgain" ConfigName="Debug_x64"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="ex2-1 Helloworld" ConfigName="Release_Win32"/>
+      <Project Name="ex2-1 Helloworld" ConfigName="Release_x64"/>
+      <Project Name="ex2-2 HelloWorldAgain" ConfigName="Release_Win32"/>
+      <Project Name="ex2-2 HelloWorldAgain" ConfigName="Release_x64"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
