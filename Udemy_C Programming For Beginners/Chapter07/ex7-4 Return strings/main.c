@@ -1,4 +1,8 @@
-//了解字符串的堆和栈 
+/********************************************
+	了解字符串的堆和栈
+	V1.0: 使用malloc和free
+	V1.1: 将strcat换成更安全的strcat_s
+********************************************/
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
@@ -12,17 +16,17 @@ char *string_function_dynamic(char *astring)
 	char *s;
 	s = malloc(MAXSTRLEN);  //如果不分配内存，s的值不会传出来
 	s[0] = 0;  //用来初始化malloc分配的缓冲区
-	strcat(s, "Hello,");
-	strcat(s, astring);
-	strcat(s, "\n");
+	strcat_s(s, MAXSTRLEN, "Hello,");  //第二个参数代表目标字符串缓冲区的大小
+	strcat_s(s, MAXSTRLEN, astring);
+	strcat_s(s, MAXSTRLEN, "\n");
 	return s;
 }
 
 char *string_function(char astring[])
 {
-	strcat(greeting, "Hello,");
-	strcat(greeting, astring);
-	strcat(greeting, "\n");
+	strcat_s(greeting, MAXSTRLEN, "Hello,");
+	strcat_s(greeting, MAXSTRLEN, astring);
+	strcat_s(greeting, MAXSTRLEN, "\n");
 	return greeting;
 }
 
