@@ -1,12 +1,13 @@
-
+ï»¿
 /*****************************************************************************
 @File name:
-@Description: ÁË½â´¦Àí×Ö·û´®µÄ¶à¸öº¯Êı£¬strcat, strcpy, strstr, strncpyµÈ
+@Description: äº†è§£å¤„ç†å­—ç¬¦ä¸²çš„å¤šä¸ªå‡½æ•°ï¼Œstrcat, strcpy, strstr, strncpyç­‰
 @Author: Harry Wu
 @Version: V1.0
 @Date: 2017-04-01
 @History:
-	V1.0: ĞÂµÄ¶¼½¨ÒéÓÃ´ø_sµÄº¯Êı,¸ü°²È«
+	V1.0: æ–°çš„éƒ½å»ºè®®ç”¨å¸¦_sçš„å‡½æ•°,æ›´å®‰å…¨
+	V1.1ï¼šåŠ äº†ä¸€ä¸ªæ–°å‡½æ•°ï¼Œå°†æŒ‡å®šçš„å­—ç¬¦ä¸²æŒ‰ä¸€ä¸ªå•è¯ä¸€è¡Œæ‰“å°
 *****************************************************************************/
  
 #include <stdio.h>
@@ -17,25 +18,47 @@
 #define MAXSTRLEN 100
 
 char mystring[] = "On the 2nd day of Christmas my true love gave to me, 2 turtle doves and a partridge in a pear tree.";
-char nums[] = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";  //ÓÃÀ´ÊıÎ»ÖÃµÄ
-char tens[] = "0        1         2         3         4         5         6         7         8         9         0         1";  //ÓÃÀ´ÊıÎ»ÖÃµÄ
+char nums[] = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";  //ç”¨æ¥æ•°ä½ç½®çš„
+char tens[] = "0        1         2         3         4         5         6         7         8         9         0         1";  //ç”¨æ¥æ•°ä½ç½®çš„
 
 char msg1[MAXSTRLEN] = "Result1: ";
 char msg2[MAXSTRLEN] = "Result2: ";
 char myotherstr[6] = "test";
 
-//²éÕÒ×Ö·û´®ÖĞµÄµ¥´Ê,
-//Èç¹û²éÕÒ³É¹¦,ÏÔÊ¾µ¥´ÊÔÚ×Ö·û´®ÖĞµÄÎ»ÖÃ
-//Èç¹ûÃ»³É¹¦,ÔòÏÔÊ¾not found
+//æŸ¥æ‰¾å­—ç¬¦ä¸²ä¸­çš„å•è¯,
+//å¦‚æœæŸ¥æ‰¾æˆåŠŸ,æ˜¾ç¤ºå•è¯åœ¨å­—ç¬¦ä¸²ä¸­çš„ä½ç½®
+//å¦‚æœæ²¡æˆåŠŸ,åˆ™æ˜¾ç¤ºnot found
 void search_str(char *strDestination, char *searchstr)
 {
 	char *buffer;
-	buffer = strstr(strDestination, searchstr); //ÕÒµ½µÄµØÖ··¢¸øbuffer
-	int strPosition = buffer - strDestination + 1; //ÕÒµ½×Ö·û´®µÄÎ»ÖÃ
+	buffer = strstr(strDestination, searchstr); //æ‰¾åˆ°çš„åœ°å€å‘ç»™buffer
+	int strPosition = buffer - strDestination + 1; //æ‰¾åˆ°å­—ç¬¦ä¸²çš„ä½ç½®
 	if (buffer != NULL)
 		printf("'%s' found at position %d\n", searchstr, strPosition);
 	else
 		printf("'%s' not found\n", searchstr);
+}
+
+//å°†æŒ‡å®šçš„å­—ç¬¦ä¸²æŒ‰ä¸€ä¸ªå•è¯ä¸€è¡Œæ‰“å°
+//ä¼ å…¥çš„å‚æ•°æ˜¯å­—ç¬¦ä¸²çš„åœ°å€
+void print_str_by_word(char *str)
+{
+	bool getSpace = false;
+	while(*str != '\0')
+	{
+		if ((*str == ' ' || *str == '\t' || *str == '\n') && !getSpace)  //å¦‚æœè·å–åˆ°çš„å­—ç¬¦æ˜¯ç©ºæ ¼ï¼Œå¹¶ä¸”ä¹‹å‰æ²¡æœ‰é‡åˆ°ç©ºæ ¼ï¼Œå°±æ¢è¡Œ
+		{
+			printf("\n");
+			getSpace = true;
+		}
+		else
+		{
+			printf("%c", *str);
+			getSpace = false;
+		}
+		str++;
+	}
+	printf("\n");
 }
 
 
@@ -57,5 +80,11 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 	strncat_s(msg2, 20, "Hello", 4);
 	printf("Use strncat_s: '%s'\n", msg2);
 
+	printf("Print string word by word:\n");
+	//char *p = mystring;
+	//print_str_by_word(p);
+	print_str_by_word(mystring);
+
+	int temp = getchar();
 	return 0;
 }
