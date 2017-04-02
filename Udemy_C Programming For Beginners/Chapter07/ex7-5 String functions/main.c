@@ -57,4 +57,5 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 	strncat_s(msg2, 20, "Hello", 4);
 	printf("Use strncat_s: '%s'\n", msg2);
 
+	return 0;
 }
