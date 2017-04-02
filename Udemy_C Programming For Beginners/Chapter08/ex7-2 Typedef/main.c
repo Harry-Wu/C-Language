@@ -6,23 +6,25 @@
 @Date: 2017-04-02
 @History:
 V1.0: 结构体变量赋值与取值
+V1.1: typedef直接放到和结构体声明一起
 *****************************************************************************/
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
 #include <string.h>
 
-typedef struct cd CD;  //用typedef将结构体cd声明为一种数据类型别名，以后可以当int那样使用
+//typedef struct cd CD;  //用typedef将结构体cd声明为一种数据类型别名，以后可以当int那样使用
+typedef char STR50[50];
 //此声明声明了拥有4个成员的结构体
 //这个结构体的标签是cd
 //可以在结尾声明一个结构体变量cd_collection[4]
-struct cd
+typedef struct  //这里cd可加可不加，用typedef是创建了新类型CD
 {
-	char name[50];
-	char artist[50];
+	STR50 name;  //这种使用typedef的方式注意下，数组的尺寸也不用再定义了
+	STR50 artist;
 	int trackcount;
 	short rating;
-};
+}CD;
 
 //struct cd cd_collection[4]; //如果前面的结构体声明时没有声明变量，可以用此句
 CD cd_collection[4];
@@ -60,6 +62,6 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 		thiscd = cd_collection[i];
 		printf("CD #%d: '%s' by %s has %d tracks. My rating = %d\n", i, thiscd.name, thiscd.artist, thiscd.trackcount, thiscd.rating);
 	}
-
+	printf("Typedef\n");
 	return 0;
 }
