@@ -1,0 +1,24 @@
+﻿= Release 2.4.0.2 =
+Released: 2017-02-25
+
+== Bug Fixes ==
+ * Fixed issue #2909: Commit window unclosable after clicking "No" and "do not ask again"
+ * Fixed issue #2911: Doing Add on repository root fails with libgit2 returned invalid path"
+ * Fixed issue #2791: Start Bisect UI incomplete
+ * Update PuTTY to 0.68 (security fix, cf. http://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html)
+ * Fixed issue #2935: Icon overlay not shown for files on network UNC paths
+ * Fix possible crash in TortoiseGitMerge when applying patch
+
+<上下五千年>
+
+ １　开天辟地的神话
+
+    我们伟大祖国有非常悠久的历史。按照古代的传统说法，从传说中的黄帝到现在，大约有四千多年的历史，通常叫做“上下五千年”。
+
+    在上下五千年的历史里，有许多动人的有意义的故事。其中有许多是有文字记载的。至于五千年以前远古时期的情况，没有文字记载，但是也流传了一些神话和传说。
+    
+    譬如，我们人类的祖先，究竟是从哪里来的？古时候流传着一个盘古开天地的神话，说的是在天地开辟之前，宇宙不过是混混沌沌的一团气，里面没有光，没有声音。这时候，出了一个盘古氏，用大斧把这一团混沌劈了开来。轻的气往上浮，就成了天；重的气往下沉，就成了地。
+    
+    以后，天每天高出一丈，地每天加厚一丈，盘古氏本人也每天长高了一丈。这样过了一万八千年，天就很高很高，地就很厚很厚，盘古氏当然也成了顶天立地的巨人。后来，盘古氏死了，他的身体的各个部分就变成了太阳、月亮、星星、高山、河流、草木等等。
+
+    这就是开天辟地的神话。
