@@ -7,7 +7,8 @@
 @Date: 2017-04-04
 @History:
 	V1.0: 查找text文件中的字符串在哪一行
-
+	V1.1:搜索到的单词，让其显示具体位置
+// TODO: 目前搜索到的字符串，只要单词里包含此字符串都算，后续可以添加是不是完整单词才算找到.
 *****************************************************************************/
 #include <stdio.h>
 #include <stdbool.h>
@@ -125,10 +126,12 @@ void search_str_file(char *filename, char *searchstr)
 		{
 			//fputs(line, stdout);
 			numlines++;  //只要读完一行就+1
-			if (search_str(line, searchstr) >= 0) //如果没找到就是-1
+			// TODO: 搜索到的单词，让其显示具体位置(已添加）.
+			int strPosition = search_str(line, searchstr);
+			if (strPosition >= 0) //如果没找到就是-1
 			{
 				isFound = true;
-				printf("'%s' was found in #%d lines within file '%s'.\n", searchstr, numlines, filename);
+				printf("'%s' was found in #%d lines #%d position within file '%s'.\n", searchstr, numlines, strPosition, filename);
 			}
 		}
 		//循环结束后，查询是否有找到单词，如果没有执行下面的语句
