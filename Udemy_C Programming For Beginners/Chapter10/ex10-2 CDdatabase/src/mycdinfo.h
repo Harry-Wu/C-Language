@@ -28,10 +28,10 @@ CD tempcd;
 void create_cdcollection();
 void display_cdcollection(char *filename);
 int number_of_records_in_db(char *);
-//void backup_cd(char*);
+void backup_cd();
 int cdarraylen;
 void add_cd(char*);
-//void modify_cd(char*);
+void modify_cd(char*);
 
 void read_binfile(char *filename);
 

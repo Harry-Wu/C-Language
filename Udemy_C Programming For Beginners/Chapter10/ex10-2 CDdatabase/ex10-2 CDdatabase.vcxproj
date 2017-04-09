@@ -146,9 +146,17 @@
     <ClCompile Include="src\mystring.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="resource2.h" />
+    <ClInclude Include="resource3.h" />
     <ClInclude Include="src\cs50.h" />
     <ClInclude Include="src\mycdinfo.h" />
     <ClInclude Include="src\mystring.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ex10-2 CDdatabase.rc" />
+    <ResourceCompile Include="ex10-2 CDdatabase1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,38 +39,13 @@ void create_cdcollection() {
 	cd_collection[3].rating = 91;  //不使用枚举里面的值也是可以的,但不要用
 }
 
-int number_of_records_in_db(char *filename)
-{
-	FILE *fp;  //文件流
-	errno_t err = fopen_s(&fp, filename, "rb");  //"rb"--二进制方式打开文件
-	long numbytes = 0;  //保存文件有多少个字节
-	long items_read = 0;  //保存文件流中实际读取的cd信息数
-	int numRecords = 0;
-	if (!err && fp != NULL)
-	{
-		printf("File '%s' is opened.\n", filename);
-		printf("-----------------------------------------\n");
-		fseek(fp, 0, SEEK_END);  //用于二进制方式打开的文件,移动文件读写指针位置到文件结尾
-		numbytes = ftell(fp); //到文件位置指针当前位置相对于文件首的偏移字节数
-		numRecords = numbytes / sizeof(CD);
-		//rewind(fp);  //将文件指针重新指向一个流的开头
-		fclose(fp);
-	}
-	else
-	{
-		printf("Can not read file:%s!\n", filename);
-	}
-	
-	return numRecords;
-}
-
 void add_cd(char *filename)
 {
 	FILE *fp;  //文件流
 	CD *tempcd = get_cd_data();
 	errno_t err = fopen_s(&fp, filename, "ab");  //"rb"--二进制方式打开文件
-												
-	
+
+
 	if (!err && fp != NULL)
 	{
 		printf("File '%s' is opened, will append data.\n", filename);
@@ -82,7 +57,6 @@ void add_cd(char *filename)
 		printf("Can not read file:%s!\n", filename);
 	}
 }
-
 
 //从cd_database文件中获取cd信息并显示到屏幕上
 void display_cdcollection(char *filename)
@@ -107,12 +81,96 @@ void display_cdcollection(char *filename)
 	{
 		printf("Can not read file:%s!\n", filename);
 	}
-	for (int i = 0; i < items_read ; i++)
+	for (int i = 0; i < items_read; i++)
 	{
-		printf("%d CD #%d: '%s' by %s has %d tracks. My rating = %d\n", sizeof(CD), i, (cd_collection+i)->name, (cd_collection + i)->artist, (cd_collection + i)->trackcount, (cd_collection + i)->rating);
+		printf("%d CD #%d: '%s' by %s has %d tracks. My rating = %d\n", sizeof(CD), i, (cd_collection + i)->name, (cd_collection + i)->artist, (cd_collection + i)->trackcount, (cd_collection + i)->rating);
 	}
+	printf("-----------------------------------------\n");
 	cdarraylen = items_read;  //备份内存中的cd信息时用这个数字
 	//return items_read;
+}
+
+//先确定修改哪个cd信息,再按提示输入新的cd信息
+void modify_cd(char *filename)
+{
+	FILE *fp;  //文件流
+	//CD *tempcd = get_cd_data();
+	errno_t err = fopen_s(&fp, filename, "rb+");  //"b"--二进制方式打开文件
+
+	long numbytes = 0;  //保存文件有多少个字节
+	long items_read = 0;  //保存文件流中实际读取的cd信息数
+	int records_SN = 0;  //cd信息的序号
+
+	if (!err && fp != NULL)
+	{
+		printf("File '%s' is opened, will modify data.\n", filename);
+		printf("Please input which cd data you want to modify:\n");
+		records_SN = get_int();
+		CD *tempcd = get_cd_data();
+		fseek(fp, sizeof(CD)*records_SN, SEEK_SET);  //用于二进制方式打开的文件,移动文件读写指针位置到文件结尾
+		fwrite(tempcd, sizeof(CD), 1, fp);
+		fclose(fp);
+		printf("Modified.\n");
+	}
+	else
+	{
+		printf("Can not read file:%s!\n", filename);
+	}
+}
+
+int number_of_records_in_db(char *filename)
+{
+	FILE *fp;  //文件流
+	errno_t err = fopen_s(&fp, filename, "rb");  //"rb"--二进制方式打开文件
+	long numbytes = 0;  //保存文件有多少个字节
+	long items_read = 0;  //保存文件流中实际读取的cd信息数
+	int numRecords = 0;  //保存有多少项cd记录
+	if (!err && fp != NULL)
+	{
+		//printf("File '%s' is opened.\n", filename);
+		//printf("-----------------------------------------\n");
+		fseek(fp, 0, SEEK_END);  //用于二进制方式打开的文件,移动文件读写指针位置到文件结尾
+		numbytes = ftell(fp); //到文件位置指针当前位置相对于文件首的偏移字节数
+		numRecords = numbytes / sizeof(CD);
+		//rewind(fp);  //将文件指针重新指向一个流的开头
+		fclose(fp);
+	}
+	else
+	{
+		printf("Can not read file:%s!\n", filename);
+	}
+
+	return numRecords;
+}
+
+//注意是备份内存中读取的cd信息, 即cd_collection的信息, 不是cd_database.bin文件的备份
+//文件名自定义
+void backup_cd()
+{
+	FILE *fp;  //文件流
+	int items_written = 0;  //保存实际写入文件流中的cd信息数
+
+	printf("Please give the name of the backup file:\n");
+	char *filename = get_string();
+
+	errno_t err = fopen_s(&fp, filename, "wb+");  //二进制方式打开文件供读写
+	long numbytes = 0;  //保存文件有多少个字节
+	//int numRecords = 0;
+
+	if (!err && fp != NULL)
+	{
+		printf("Backup file '%s' is opened, will backup the cd data from memory.\n", filename);
+		
+		//numRecords = get_int();
+		//fseek(fp, sizeof(CD)*numRecords, SEEK_SET);  //用于二进制方式打开的文件,移动文件读写指针位置到文件结尾
+		fwrite(cd_collection, sizeof(CD), cdarraylen, fp);
+		fclose(fp);
+		printf("Backup Done.\n");
+	}
+	else
+	{
+		printf("Can not read file:%s!\n", filename);
+	}
 }
 
 //二进制格式读取文件信息
@@ -179,7 +237,7 @@ static CD *get_cd_data()
 		printf("'%d' is Invalid number for cd tracks. 1 will be used\n", temp_cd_tracks);
 		temp_cd_tracks = 1;
 	}
-	if (temp_cd_rating == 0) 
+	if (temp_cd_rating == 0)
 	{
 		printf("'%d' is Invalid number for cd tracks. 1 will be used\n", temp_cd_rating);
 		temp_cd_rating = 1;
@@ -187,7 +245,7 @@ static CD *get_cd_data()
 	strcpy_s(tempcd.name, 50, temp_cd_name);
 	strcpy_s(tempcd.artist, 50, temp_cd_artist);
 	tempcd.trackcount = temp_cd_tracks;
-	tempcd.rating= temp_cd_rating;
+	tempcd.rating = temp_cd_rating;
 
 	return &tempcd;
 }

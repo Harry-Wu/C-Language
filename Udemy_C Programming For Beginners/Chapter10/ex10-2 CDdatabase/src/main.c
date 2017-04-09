@@ -3,12 +3,15 @@
 @Description:
 @	建立CD歌曲信息库
 @Author: Harry Wu
-@Version: V1.0
-@Date: 2017-04-06
+@Version: V1.1
+@Date: 2017-04-09
 @History:
 	V1.0: 加上了显示cd信息和添加新cd信息的功能函数
-
+	V1.1: 加上了修改cd信息和备份内存中cd信息的功能函数
 *****************************************************************************/
+//TODO: 修改cd信息时,输入的序列号有可能是负数, 没做判定
+//TODO: display_cdcollection()函数有很多警告, 有时间优化
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -42,7 +45,7 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 				break;
 			case 'm':
 				printf("Modify record:\n");
-				//modify_cd(FILENAME);
+				modify_cd(FILENAME);
 				break;
 			case 'n':
 				printf("Numbers of record(s):\n");
@@ -50,7 +53,7 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 				break;
 			case 's':
 				printf("Save backup (from memory):\n");
-				//backup_cd(FILENAME_BAK);
+				backup_cd();
 				break;
 			case 'q':
 			case 'Q':
@@ -59,7 +62,7 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 				break;
 			default:
 				printf("Invalid command! Please try again:\n");
-				//break;
+				break;
 		}
 
 	}
