@@ -94,19 +94,31 @@ void display_cdcollection(char *filename)
 void modify_cd(char *filename)
 {
 	FILE *fp;  //文件流
-	//CD *tempcd = get_cd_data();
-	errno_t err = fopen_s(&fp, filename, "rb+");  //"b"--二进制方式打开文件
-
-	long numbytes = 0;  //保存文件有多少个字节
-	long items_read = 0;  //保存文件流中实际读取的cd信息数
+	//long numbytes = 0;  //保存文件有多少个字节
+	//long items_read = 0;  //保存文件流中实际读取的cd信息数
 	int records_SN = 0;  //cd信息的序号
 
+	printf("Please input which cd data you want to modify:\n");
+	records_SN = get_int();
+	while ((records_SN < 0) || (records_SN > (number_of_records_in_db(filename) - 1)))
+	{
+		if (records_SN < 0)
+		{
+			printf("Don't input negative number!\nRetry:");
+		} 
+		else
+		{
+			printf("Can't fine cd serial number!\nRetry:");
+		}
+		records_SN = get_int();
+	}
+	CD *tempcd = get_cd_data();
+
+	errno_t err = fopen_s(&fp, filename, "rb+");  //"b"--二进制方式打开文件
 	if (!err && fp != NULL)
 	{
 		printf("File '%s' is opened, will modify data.\n", filename);
-		printf("Please input which cd data you want to modify:\n");
-		records_SN = get_int();
-		CD *tempcd = get_cd_data();
+		
 		fseek(fp, sizeof(CD)*records_SN, SEEK_SET);  //用于二进制方式打开的文件,移动文件读写指针位置到文件结尾
 		fwrite(tempcd, sizeof(CD), 1, fp);
 		fclose(fp);

@@ -3,16 +3,17 @@
 @Description:
 @	建立CD歌曲信息库
 @Author: Harry Wu
-@Version: V1.1
+@Version: V1.2
 @Date: 2017-04-09
 @History:
 	V1.0: 加上了显示cd信息和添加新cd信息的功能函数
 	V1.1: 加上了修改cd信息和备份内存中cd信息的功能函数
+	V1.2: 加上了输入的序列号有可能是负数, 或超出范围的判定; 增加了控制台程序的标题
 *****************************************************************************/
-//TODO: 修改cd信息时,输入的序列号有可能是负数, 没做判定
 //TODO: display_cdcollection()函数有很多警告, 有时间优化
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include "cs50.h"
@@ -26,6 +27,7 @@
 
 int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp)
 {
+	system("title CD_DATABASE"); //程序标题
 	bool keepgoing = true;  //是否继续操作标识符
 	create_cdcollection();
 	while (keepgoing)
@@ -66,6 +68,7 @@ int main(_In_ int argc, _In_reads_(argc) _Pre_z_ char** argv, _In_z_ char** envp
 		}
 
 	}
+	system("pause");
 
 	return 0;
 }
