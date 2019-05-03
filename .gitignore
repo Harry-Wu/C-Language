@@ -250,3 +250,10 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# vscode folder and files
+.vscode
+
+# ctags files
+*.tags
+*.tags_sorted_by_file
